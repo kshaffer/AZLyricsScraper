@@ -4,9 +4,15 @@ def read_html(filename):
     f = open(filename, 'r')
     return f.read()
 
+def write_text_file(data):
+    f = open('lyrics_output.txt', 'w')
+    f.write(all_lyrics_clean)
+
 songlist = []
 for file in (listdir('songfiles')):
     songlist.append('songfiles/' + file)
+
+all_lyrics_clean = ''
 
 for song in songlist:
     html_text = read_html(song)
@@ -20,11 +26,14 @@ for song in songlist:
     lyrics = l.split(' </div>  <br>')[0]
     lyrics_clean = lyrics.replace('<br> ', '\n')
 
-
+    all_lyrics_clean += lyrics_clean
+    all_lyrics_clean += '\n'
     """
     print(artist)
     print(title)
     print('\n')
-    """
     print(lyrics_clean)
     print('\n')
+    """
+
+write_text_file(all_lyrics_clean)
